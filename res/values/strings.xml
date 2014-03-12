@@ -3,6 +3,8 @@
 
     <string name="app_name">MetaFlix Movie Quiz</string>
     <string name="action_settings">Settings</string>
-    <string name="hello_world">Hello world!</string>
-
+    <string name="welcome">Welcome to the MetaFlix Movie Quiz!</string>
+	<string name="quizStartButtonLabel">Start Quiz</string>
+	<string name="quizStatisticsButtonLabel">Quiz Statistics</string>
+    
 </resources>
