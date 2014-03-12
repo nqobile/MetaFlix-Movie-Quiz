@@ -19,11 +19,12 @@
         android:text="@string/welcome" />
 
     <Button
-        android:id="@+id/startButton"
+        android:id="@+id/quizButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/statsButton"
         android:layout_centerHorizontal="true"
+        android:onClick="startQuiz"
         android:text="@string/quizStartButtonLabel" />
 
     <Button
