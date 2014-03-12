@@ -1,10 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- MainActivity -->
     <string name="app_name">MetaFlix Movie Quiz</string>
     <string name="action_settings">Settings</string>
     <string name="welcome">Welcome to the MetaFlix Movie Quiz!</string>
-	<string name="quizStartButtonLabel">Start Quiz</string>
-	<string name="quizStatisticsButtonLabel">Quiz Statistics</string>
+    <string name="quizStartButtonLabel">Start Quiz</string>
+    <string name="quizStatisticsButtonLabel">Quiz Statistics</string>
     
+    <!-- QuizActivity -->
+    <string name="title_activity_quiz">MetaFlix Movie Quiz</string>
+    <string name="question">Place the question from the DB here.</string>
+    <string name="timeRemaining">Time Left</string>
+    <string name="answerButton">Submit Answer</string>
+    <string name="answerOne">Answer #1</string>
+    <string name="answerTwo">Answer #2</string>
+    <string name="answerThree">Answer #3</string>
+    <string name="answerFour">Answer #4</string>
+
 </resources>
