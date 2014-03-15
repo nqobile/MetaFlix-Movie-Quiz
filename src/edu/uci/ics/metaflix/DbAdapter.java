@@ -10,7 +10,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-public class DbAdapter extends SQLiteOpenHelper{
+public class DbAdapter extends SQLiteOpenHelper
+{
 
 	private static final String DATABASE_NAME = "moviedb";
 	private static final int DATABASE_VERSION = 1;
@@ -25,19 +26,32 @@ public class DbAdapter extends SQLiteOpenHelper{
 	private SQLiteDatabase mDb;
 	private Context mContext;
 	
-	public DbAdapter(Context ctx){
+	public DbAdapter(Context ctx)
+	{
 		super(ctx, DATABASE_NAME, null, DATABASE_VERSION);
 		mContext = ctx;
 		this.mDb = getWritableDatabase();
 	}
+	
 	@Override
-	public void onCreate(SQLiteDatabase db) {
+	public void onCreate(SQLiteDatabase db)
+	{
+		/*
+		 * Create table movies in sqlite db
+		 */
 		db.execSQL(CREATE_TABLE);
-		// populate database
-		try {
+		System.out.println("Created table");
+		/*
+		 * Read from the csv file and import the data into the sqlite db.
+		 */
+		try
+		{
 			BufferedReader in = new BufferedReader(new InputStreamReader(mContext.getAssets().open(FILE_NAME)));
 			String line;
-			while((line=in.readLine())!=null) {
+			line = in.readLine();
+			while(line != null)
+			{
+				System.out.println("Trying to add data to db...");
 				String[] fields = line.split(",");
 				ContentValues values = new ContentValues();
 				values.put(MOVIE_ID, fields[0]);
@@ -45,22 +59,24 @@ public class DbAdapter extends SQLiteOpenHelper{
 				values.put(MOVIE_YEAR, fields[2]);
 				values.put(MOVIE_DIRECTOR, fields[3]);
 				db.insert(TABLE_NAME, null, values);
+				line = in.readLine();
 			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
+		}
+		catch (IOException e)
+		{
 			e.printStackTrace();
 		}
-		
 	}
 
 	@Override
-	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		db.execSQL("DROP TABLE IF EXISTS "+TABLE_NAME);
-		onCreate(db);	
+	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
+	{
+		db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+		onCreate(db);
 	}
 	
-	public Cursor fetchAll() {
+	public Cursor fetchAll()
+	{
 		return mDb.query(TABLE_NAME, new String[] {MOVIE_ID, MOVIE_TITLE, MOVIE_YEAR, MOVIE_DIRECTOR}, null, null, null, null, null);
 	}
-
 }
