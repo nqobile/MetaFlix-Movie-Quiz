@@ -33,7 +33,8 @@ public class QuizActivity extends Activity
         /*
          * Start quiz
          */
-        QuestionAdapter qa = new QuestionAdapter(getApplicationContext());
+        QuestionAdapter qa = new QuestionAdapter(this.getApplicationContext());
+        qa = qa.open();
         int numberOfQuestionsAnswered = 0;
 		while(numberOfQuestionsAnswered < 4)
 		{
@@ -52,7 +53,7 @@ public class QuizActivity extends Activity
 			 * Make the question
 			 */
 			Random random = new Random();
-			final Question q = qa.generateQuestion(random.nextInt(8));
+			final Question q = qa.generateQuestion(random.nextInt(3));
 			
 			/*
 			 * Change the text of the quesiton
@@ -90,10 +91,10 @@ public class QuizActivity extends Activity
 							// Change the colors to reflect which answer was correct
 						    int selectedAnswer = rg.getCheckedRadioButtonId();
 						    RadioButton rb = (RadioButton) findViewById(selectedAnswer);
-						    answerOne.setTextColor(Color.parseColor("#FFE74C3C"));
-						    answerTwo.setTextColor(Color.parseColor("#FFE74C3C"));
-						    answerThree.setTextColor(Color.parseColor("#FFE74C3C"));
-						    answerFour.setTextColor(Color.parseColor("#FFE74C3C"));
+						    answerOne.setTextColor(Color.argb(255, 231, 76, 60));
+						    answerTwo.setTextColor(Color.argb(255, 231, 76, 60));
+						    answerThree.setTextColor(Color.argb(255, 231, 76, 60));
+						    answerFour.setTextColor(Color.argb(255, 231, 76, 60));
 						    long timeForUsersResponse;
 							switch(rb.getId())
 						    {
@@ -104,7 +105,7 @@ public class QuizActivity extends Activity
 						    	 */
 						    	if((q.getCorrectAnswerNumber() + 1) == 1)
 						    	{
-						    		answerOne.setTextColor(Color.parseColor("FF2ECC71"));
+						    		answerOne.setTextColor(Color.argb(255, 46, 204, 113));
 						    		MainActivity.stats.addToCorrectAnswerTotal();
 						    	}
 						    	MainActivity.stats.addToWrongAnswerTotal();
@@ -118,7 +119,7 @@ public class QuizActivity extends Activity
 						    	 */
 						    	if((q.getCorrectAnswerNumber() + 1) == 2)
 						    	{
-						    		answerTwo.setTextColor(Color.parseColor("FF2ECC71"));
+						    		answerTwo.setTextColor(Color.argb(255, 46, 204, 113));
 						    		MainActivity.stats.addToCorrectAnswerTotal();
 						    	}
 						    	MainActivity.stats.addToWrongAnswerTotal();
@@ -132,7 +133,7 @@ public class QuizActivity extends Activity
 						    	 */
 						    	if((q.getCorrectAnswerNumber() + 1) == 3)
 						    	{
-						    		answerThree.setTextColor(Color.parseColor("FF2ECC71"));
+						    		answerThree.setTextColor(Color.argb(255, 46, 204, 113));
 						    		MainActivity.stats.addToCorrectAnswerTotal();
 						    	}
 						    	MainActivity.stats.addToWrongAnswerTotal();
@@ -146,7 +147,7 @@ public class QuizActivity extends Activity
 						    	 */
 						    	if((q.getCorrectAnswerNumber() + 1) == 4)
 						    	{
-						    		answerFour.setTextColor(Color.parseColor("FF2ECC71"));
+						    		answerFour.setTextColor(Color.argb(255, 46, 204, 113));
 						    		MainActivity.stats.addToCorrectAnswerTotal();
 						    	}
 						    	MainActivity.stats.addToWrongAnswerTotal();
@@ -157,6 +158,7 @@ public class QuizActivity extends Activity
 					});
 		    numberOfQuestionsAnswered++;
 		}
+		qa.close();
     }
 
     @Override
