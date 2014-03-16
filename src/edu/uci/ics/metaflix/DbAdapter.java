@@ -12,8 +12,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DbAdapter extends SQLiteOpenHelper{
 
-	private static final String DATABASE_NAME = "moviedb";
-	private static final int DATABASE_VERSION = 1;
+	public static final String DATABASE_NAME = "moviedb";
+	public static final int DATABASE_VERSION = 1;
 	private static final String TABLE_NAME = "movies";
 	private static final String MOVIE_ID = "id";
 	private static final String MOVIE_TITLE = "title";
