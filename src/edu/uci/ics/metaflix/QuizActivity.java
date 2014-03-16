@@ -36,7 +36,7 @@ public class QuizActivity extends Activity
         QuestionAdapter qa = new QuestionAdapter(this.getApplicationContext());
         qa = qa.open();
         int numberOfQuestionsAnswered = 0;
-		while(numberOfQuestionsAnswered < 4)
+		if(numberOfQuestionsAnswered < 4)
 		{
 			/*
 			 * 0 - Who directed the movie X?
@@ -70,16 +70,16 @@ public class QuizActivity extends Activity
 		    answerOne.setChecked(false);
 		    
 		    final RadioButton answerTwo = (RadioButton) findViewById(R.id.answerTwo);
-		    answerOne.setText(q.getAnswers().get(1));
-		    answerOne.setChecked(false);
+		    answerTwo.setText(q.getAnswers().get(1));
+		    answerTwo.setChecked(false);
 		    
 		    final RadioButton answerThree = (RadioButton) findViewById(R.id.answerThree);
-		    answerOne.setText(q.getAnswers().get(2));
-		    answerOne.setChecked(false);
+		    answerThree.setText(q.getAnswers().get(2));
+		    answerThree.setChecked(false);
 		    
 		    final RadioButton answerFour = (RadioButton) findViewById(R.id.answerFour);
-		    answerOne.setText(q.getAnswers().get(3));
-		    answerOne.setChecked(false);
+		    answerFour.setText(q.getAnswers().get(3));
+		    answerFour.setChecked(false);
 		    
 		    // Start measuring how long it takes for the user to answer the question
 		    final long timeStart = System.currentTimeMillis();
