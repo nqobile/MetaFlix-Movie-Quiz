@@ -4,10 +4,15 @@ import java.util.Random;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.view.MenuItem;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.RadioGroup.OnCheckedChangeListener;
+import android.widget.TextView;
 
 public class QuizActivity extends Activity
 {
@@ -42,10 +47,116 @@ public class QuizActivity extends Activity
 			 * 6 - Which star did not appear in the same movie with the star X?
 			 * 7 - Who directed the star X in year Y?
 			 */
+			
+			/*
+			 * Make the question
+			 */
 			Random random = new Random();
-			int questionType = random.nextInt(8);
-			generateQuestion(questionType);
-		}        
+			final Question q = qa.generateQuestion(random.nextInt(8));
+			
+			/*
+			 * Change the text of the quesiton
+			 * NOTE: The labels are One-based in the layout.xml file, but are Zero-based in
+			 * 		 Question.java
+			 */
+			final RadioGroup rg = (RadioGroup) findViewById(R.id.answerRadioButtonGroup);
+			
+			TextView questionText = (TextView) findViewById(R.id.questionText); 
+		    questionText.setText(q.getQuestion());
+		    
+		    final RadioButton answerOne = (RadioButton) findViewById(R.id.answerOne);
+		    answerOne.setText(q.getAnswers().get(0));
+		    answerOne.setChecked(false);
+		    
+		    final RadioButton answerTwo = (RadioButton) findViewById(R.id.answerTwo);
+		    answerOne.setText(q.getAnswers().get(1));
+		    answerOne.setChecked(false);
+		    
+		    final RadioButton answerThree = (RadioButton) findViewById(R.id.answerThree);
+		    answerOne.setText(q.getAnswers().get(2));
+		    answerOne.setChecked(false);
+		    
+		    final RadioButton answerFour = (RadioButton) findViewById(R.id.answerFour);
+		    answerOne.setText(q.getAnswers().get(3));
+		    answerOne.setChecked(false);
+		    
+		    // Start measuring how long it takes for the user to answer the question
+		    final long timeStart = System.currentTimeMillis();
+		    rg.setOnCheckedChangeListener(
+		    		new OnCheckedChangeListener()
+					{
+						public void onCheckedChanged(RadioGroup group, int checkedId)
+						{
+							// Change the colors to reflect which answer was correct
+						    int selectedAnswer = rg.getCheckedRadioButtonId();
+						    RadioButton rb = (RadioButton) findViewById(selectedAnswer);
+						    answerOne.setTextColor(Color.parseColor("#FFE74C3C"));
+						    answerTwo.setTextColor(Color.parseColor("#FFE74C3C"));
+						    answerThree.setTextColor(Color.parseColor("#FFE74C3C"));
+						    answerFour.setTextColor(Color.parseColor("#FFE74C3C"));
+						    long timeForUsersResponse;
+							switch(rb.getId())
+						    {
+						    case R.id.answerOne:
+						    	/*
+						    	 * If the answer view selected is the correct answer, update the statistics
+						    	 * to reflect the quiz statistics
+						    	 */
+						    	if((q.getCorrectAnswerNumber() + 1) == 1)
+						    	{
+						    		answerOne.setTextColor(Color.parseColor("FF2ECC71"));
+						    		MainActivity.stats.addToCorrectAnswerTotal();
+						    	}
+						    	MainActivity.stats.addToWrongAnswerTotal();
+						    	timeForUsersResponse = System.currentTimeMillis() - timeStart;
+						    	MainActivity.stats.calculateAverageTimePerQuestion(timeForUsersResponse);
+						    	
+						    case R.id.answerTwo:
+						    	/*
+						    	 * If the answer view selected is the correct answer, update the statistics
+						    	 * to reflect the quiz statistics
+						    	 */
+						    	if((q.getCorrectAnswerNumber() + 1) == 2)
+						    	{
+						    		answerTwo.setTextColor(Color.parseColor("FF2ECC71"));
+						    		MainActivity.stats.addToCorrectAnswerTotal();
+						    	}
+						    	MainActivity.stats.addToWrongAnswerTotal();
+						    	timeForUsersResponse = System.currentTimeMillis() - timeStart;
+						    	MainActivity.stats.calculateAverageTimePerQuestion(timeForUsersResponse);
+						    	
+						    case R.id.answerThree:
+						    	/*
+						    	 * If the answer view selected is the correct answer, update the statistics
+						    	 * to reflect the quiz statistics
+						    	 */
+						    	if((q.getCorrectAnswerNumber() + 1) == 3)
+						    	{
+						    		answerThree.setTextColor(Color.parseColor("FF2ECC71"));
+						    		MainActivity.stats.addToCorrectAnswerTotal();
+						    	}
+						    	MainActivity.stats.addToWrongAnswerTotal();
+						    	timeForUsersResponse = System.currentTimeMillis() - timeStart;
+						    	MainActivity.stats.calculateAverageTimePerQuestion(timeForUsersResponse);
+						    	
+						    case R.id.answerFour:
+						    	/*
+						    	 * If the answer view selected is the correct answer, update the statistics
+						    	 * to reflect the quiz statistics
+						    	 */
+						    	if((q.getCorrectAnswerNumber() + 1) == 4)
+						    	{
+						    		answerFour.setTextColor(Color.parseColor("FF2ECC71"));
+						    		MainActivity.stats.addToCorrectAnswerTotal();
+						    	}
+						    	MainActivity.stats.addToWrongAnswerTotal();
+						    	timeForUsersResponse = System.currentTimeMillis() - timeStart;
+						    	MainActivity.stats.calculateAverageTimePerQuestion(timeForUsersResponse);
+						    }
+						}
+					});
+		    numberOfQuestionsAnswered++;
+		}
     }
 
     @Override

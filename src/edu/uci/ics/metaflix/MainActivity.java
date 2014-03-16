@@ -6,8 +6,10 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 
-public class MainActivity extends Activity {
-
+public class MainActivity extends Activity
+{
+	public static Statistic stats;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -17,6 +19,7 @@ public class MainActivity extends Activity {
 		/*
 		 * Create the databases and populate it
 		 */
+		stats = new Statistic();
 		DbAdapter dba = new DbAdapter(this);
 	}
 

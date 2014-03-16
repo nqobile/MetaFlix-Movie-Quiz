@@ -5,7 +5,6 @@ public class Statistic
 	private int totalCorrectAnswers;
 	private int totalWrongAnswers;
 	private long averageTimePerQuestion; // long because System.currentTimeInMillis() returns a long
-	private long totalTimeSpentAnsweringQuestions;	// long because System.currentTimeInMillis() returns long
 	private int totalNumberOfQuizzesTaken;
 	private double overallScore;
 	private int totalNumberOfQuestions;
@@ -17,7 +16,6 @@ public class Statistic
 		totalCorrectAnswers = 0;
 		totalWrongAnswers = 0;
 		averageTimePerQuestion = 0;
-		totalTimeSpentAnsweringQuestions = 0;
 		totalNumberOfQuizzesTaken = 0;
 		overallScore = 0;
 		totalNumberOfQuestions = 0;
@@ -82,8 +80,8 @@ public class Statistic
 	// Calculates the average time spent answering each question by dividing the total time spent
 	// answered all of the questions across all quizzess divided by the total number of questions
 	// answered across all quizzes.
-	public void updateAverageTimePerQuestion()
+	public void calculateAverageTimePerQuestion(long timeInMilliseconds)
 	{
-		averageTimePerQuestion = (totalTimeSpentAnsweringQuestions / totalNumberOfQuestions);
+		averageTimePerQuestion = ((averageTimePerQuestion + timeInMilliseconds) / totalNumberOfQuestions);
 	}
 }
