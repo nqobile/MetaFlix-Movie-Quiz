@@ -105,7 +105,7 @@ public class QuestionAdapter {
 	    		query = "SELECT title, director FROM movies ORDER BY RANDOM() LIMIT 1";
 	    		results = this.mDb.rawQuery(query, null);
 	    		results.moveToFirst();
-	    		correctAnswerIndex = randomGen.nextInt(3);
+	    		correctAnswerIndex = randomGen.nextInt(4);
 	    		answers.add(correctAnswerIndex, results.getString(1));
 	    		
 	    		return new Question("Who directed the movie "+results.getString(0)+"?", correctAnswerIndex, answers);
@@ -119,7 +119,7 @@ public class QuestionAdapter {
 	    		answers.add(String.valueOf(results.getInt(1)-2));
 	    		answers.add(String.valueOf(results.getInt(1)+1));
 	    		
-	    		correctAnswerIndex = randomGen.nextInt(3);
+	    		correctAnswerIndex = randomGen.nextInt(4);
 	    		answers.add(correctAnswerIndex, String.valueOf(results.getInt(1)));
 	    		
 	    		return new Question("When was the movie "+results.getString(0)+" released?", correctAnswerIndex, answers);	
@@ -137,7 +137,7 @@ public class QuestionAdapter {
 	    			answers.add(wrongResults.getString(0) + " " + wrongResults.getString(1));
 	    		}	    		
 	    		
-	    		correctAnswerIndex = randomGen.nextInt(3);
+	    		correctAnswerIndex = randomGen.nextInt(4);
 	    		answers.add(correctAnswerIndex, results.getString(0) + " " + results.getString(1));
 	    		return new Question("Which star was in the movie "+results.getString(2)+"?", correctAnswerIndex, answers);	
 	    	case 3:
@@ -157,7 +157,7 @@ public class QuestionAdapter {
 	    		String query2 = "SELECT first_name, last_name FROM stars, stars_in_movies WHERE (stars.id = stars_in_movies.star_id) AND movie_id = " + results.getInt(0) + " ORDER BY RANDOM() LIMIT 2";
 	    		Cursor results2 = this.mDb.rawQuery(query2, null);
 	    		
-	    		correctAnswerIndex = randomGen.nextInt(3);
+	    		correctAnswerIndex = randomGen.nextInt(4);
 	    		answers.add(correctAnswerIndex, results.getString(1));
 	    		String question = "In which movie did stars " + results2.getString(0) + " " + results2.getString(1);
 	    		results2.moveToNext();
@@ -165,6 +165,7 @@ public class QuestionAdapter {
 	    		
 	    		return new Question(question, correctAnswerIndex, answers);
 	    	case 4:
+	    		
 	    	case 5:
 	    	case 6:
 	    	case 7:
