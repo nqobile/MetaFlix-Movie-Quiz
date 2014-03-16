@@ -35,6 +35,8 @@ public class DbAdapter extends SQLiteOpenHelper{
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		db.execSQL(CREATE_TABLE);
+		db.execSQL(CREATE_TABLE2);
+		db.execSQL(CREATE_TABLE3);
 		// populate database
 		try {
 			BufferedReader in = new BufferedReader(new InputStreamReader(mContext.getAssets().open(FILE_NAME)));
