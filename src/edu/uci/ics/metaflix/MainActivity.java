@@ -18,6 +18,7 @@ public class MainActivity extends Activity {
 		 * Create the databases and populate it
 		 */
 		DbAdapter dba = new DbAdapter(this);
+		
 	}
 
 	@Override
