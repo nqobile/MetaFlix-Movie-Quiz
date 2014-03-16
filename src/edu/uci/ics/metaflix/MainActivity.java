@@ -2,7 +2,6 @@ package edu.uci.ics.metaflix;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -19,7 +18,6 @@ public class MainActivity extends Activity {
 		 * Create the databases and populate it
 		 */
 		DbAdapter dba = new DbAdapter(this);
-		Cursor cursor = dba.fetchAll();
 	}
 
 	@Override

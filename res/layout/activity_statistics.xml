@@ -1,0 +1,133 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".StatisticsActivity" >
+
+    <!-- Overall Score -->
+	<TextView
+        android:id="@+id/overallScoreLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/overallScoreValue"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="24dp"
+        android:textSize="12sp"
+        android:textStyle="italic"
+        android:text="@string/overallScoreLabel" />
+	<TextView
+    	android:id="@id/overallScoreValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        android:textSize="98sp"
+        android:textColor="#FF2ECC71"
+        android:text="@string/overallScoreValue" />
+
+
+	
+    <!-- Total Quizzes Taken -->
+    <TextView
+        android:id="@+id/totalQuizzesTakenLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/overallScoreLabel"
+        android:layout_marginTop="36dp"
+        android:textSize="12sp"
+        android:textStyle="italic"
+        android:text="@string/totalQuizzesTakenLabel" />
+    <TextView
+        android:id="@+id/totalQuizzesTakenValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/totalQuizzesTakenLabel"
+        android:layout_alignBottom="@+id/totalQuizzesTakenLabel"
+        android:layout_alignLeft="@+id/totalCorrectAnswersValue"
+        android:textSize="32sp"
+        android:textColor="#FF2ECC71"
+        android:textStyle="bold"
+        android:text="@string/totalQuizzesTakenValue" />
+    
+    
+    
+    <!-- Total Correct Answers -->
+    <TextView
+        android:id="@+id/totalCorrectAnswersLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/totalQuizzesTakenValue"
+        android:layout_marginTop="24dp"
+        android:textSize="12sp"
+        android:textStyle="italic"
+        android:text="@string/totalCorrectAnswersLabel" />
+    <TextView
+        android:id="@+id/totalCorrectAnswersValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/totalCorrectAnswersLabel"
+        android:layout_alignBottom="@id/totalCorrectAnswersLabel"
+        android:layout_toRightOf="@id/totalCorrectAnswersLabel"
+        android:textSize="32sp"
+        android:layout_marginLeft="16dp"
+        android:textColor="#FF2ECC71"
+        android:textStyle="bold"
+        android:text="@string/totalCorrectAnswersValue" />
+    
+    
+    
+    <!-- Total Wrong Answers -->
+    <TextView
+        android:id="@+id/totalWrongAnswersLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/totalCorrectAnswersValue"
+        android:layout_marginTop="24dp"
+        android:textSize="12sp"
+        android:textStyle="italic"
+        android:text="@string/totalWrongAnswersLabel" />
+	<TextView
+        android:id="@+id/totalWrongAnswersValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/totalWrongAnswersLabel"
+        android:layout_alignBottom="@+id/totalWrongAnswersLabel"
+        android:layout_alignLeft="@+id/totalCorrectAnswersValue"
+        android:textSize="32sp"
+        android:textColor="#FF2ECC71"
+        android:textStyle="bold"
+        android:text="@string/totalWrongAnswersValue" />
+	
+	
+	
+	<!-- Average Time Per Question -->
+	<TextView
+        android:id="@+id/averageTimePerQuestionLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/totalWrongAnswersValue"
+        android:layout_marginTop="24dp"
+        android:textSize="12sp"
+        android:textStyle="italic"
+        android:text="@string/averageTimePerQuestionLabel" />
+	<TextView
+	    android:id="@+id/averageTimePerQuestionValue"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignBaseline="@+id/averageTimePerQuestionLabel"
+	    android:layout_alignBottom="@+id/averageTimePerQuestionLabel"
+	    android:layout_alignLeft="@+id/totalWrongAnswersValue"
+	    android:text="@string/averageTimePerQuestionValue"
+	    android:textColor="#FF2ECC71"
+	    android:textSize="32sp"
+	    android:textStyle="bold" />
+
+</RelativeLayout>

@@ -7,7 +7,7 @@
     <string name="welcome">Welcome to the MetaFlix Movie Quiz!</string>
     <string name="quizStartButtonLabel">Start Quiz</string>
     <string name="quizStatisticsButtonLabel">Quiz Statistics</string>
-    
+
     <!-- QuizActivity -->
     <string name="title_activity_quiz">MetaFlix Movie Quiz</string>
     <string name="question">Place the question from the DB here.</string>
@@ -17,5 +17,19 @@
     <string name="answerTwo">Answer #2</string>
     <string name="answerThree">Answer #3</string>
     <string name="answerFour">Answer #4</string>
+    <string name="title_activity_statistics">Statistics</string>
+    <string name="hello_world">Hello world!</string>
 
+    <!-- StatisticsActivity -->
+    <string name="overallScoreValue">0%</string>
+    <string name="overallScoreLabel">Overall Score</string>
+    <string name="totalQuizzesTakenLabel">Total Quizzes Taken: </string>
+    <string name="totalQuizzesTakenValue">0</string>
+    <string name="totalCorrectAnswersLabel">Total Correct Answers:</string>
+    <string name="totalCorrectAnswersValue">0</string>
+    <string name="totalWrongAnswersLabel">Total Wrong Answers:</string>
+    <string name="totalWrongAnswersValue">0</string>
+    <string name="averageTimePerQuestionLabel">Avg. Time Per Question:</string>
+    <string name="averageTimePerQuestionValue">0\'00\"</string>
+    
 </resources>
