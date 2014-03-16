@@ -85,8 +85,10 @@ public class QuestionAdapter {
 		 */
 	    	String wrongAnsQuery;
 	    	String query;
+	    	String query2;
 	    	Cursor wrongResults;
 	    	Cursor results;
+	    	Cursor results2;
 	    	int correctAnswerIndex;
 	    	switch(questionType)
 	    	{
@@ -154,8 +156,8 @@ public class QuestionAdapter {
 	    			answers.add(wrongResults.getString(0));
 	    		}
 	    		
-	    		String query2 = "SELECT first_name, last_name FROM stars, stars_in_movies WHERE (stars.id = stars_in_movies.star_id) AND movie_id = " + results.getInt(0) + " ORDER BY RANDOM() LIMIT 2";
-	    		Cursor results2 = this.mDb.rawQuery(query2, null);
+	    		query2 = "SELECT first_name, last_name FROM stars, stars_in_movies WHERE (stars.id = stars_in_movies.star_id) AND movie_id = " + results.getInt(0) + " ORDER BY RANDOM() LIMIT 2";
+	    		results2 = this.mDb.rawQuery(query2, null);
 	    		
 	    		correctAnswerIndex = randomGen.nextInt(4);
 	    		answers.add(correctAnswerIndex, results.getString(1));
@@ -165,6 +167,26 @@ public class QuestionAdapter {
 	    		
 	    		return new Question(question, correctAnswerIndex, answers);
 	    	case 4:
+	    		answers = new ArrayList<String>();
+	    		query = "SELECT s.id, s.first_name, s.last_name FROM stars s, stars_in_movies sm WHERE s.id=sm.star_id ORDER BY RANDOM() LIMIT 1";
+	    		results = this.mDb.rawQuery(query, null);
+	    		results.moveToFirst();
+	    		
+	    		query2 = "SELECT m.director FROM stars s, movies m, stars_in_movies sm WHERE s.id=sm.star_id AND m.id=sm.movie_id" +
+	    				" AND s.id=" + results.getInt(0) + " ORDER BY RANDOM() LIMIT 1";
+	    		results2 = this.mDb.rawQuery(query2, null);
+	    		results2.moveToFirst();	    		
+	    		
+	    		wrongAnsQuery = "SELECT director FROM movies ORDER BY RANDOM() LIMIT 3";
+	    		wrongResults = this.mDb.rawQuery(wrongAnsQuery, null);
+	    		
+	    		while(wrongResults.moveToNext())
+	    		{
+	    			answers.add(wrongResults.getString(0));
+	    		}
+	    		correctAnswerIndex = randomGen.nextInt(4);
+	    		answers.add(correctAnswerIndex, results2.getString(0));
+	    		return new Question("Who directed the star " + results.getString(1) + " " + results.getString(2) + "?", correctAnswerIndex, answers);
 	    		
 	    	case 5:
 	    	case 6:
