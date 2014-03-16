@@ -1,31 +1,22 @@
 package edu.uci.ics.metaflix;
 
+import java.util.ArrayList;
+
 public class Question
 {
 	// Fields
 	private String question;
 	private int correctAnswerNumber;
-	private String answerZero;
-	private String answerOne;
-	private String answerTwo;
-	private String answerThree;
+	private ArrayList<String> answers;
 	
 	
 	
 	// Constructor
-	public Question(String question, 
-			int correctAnswerNumber, 
-			String answerZero, 
-			String answerOne, 
-			String answerTwo, 
-			String answerThree)
+	public Question(String question, int correctAnswerNumber, ArrayList<String> answers)
 	{
 		this.question = question;
 		this.correctAnswerNumber = correctAnswerNumber;
-		this.answerZero = answerZero;
-		this.answerOne = answerOne;
-		this.answerTwo = answerTwo;
-		this.answerThree = answerThree;
+		this.answers = answers;
 	}
 	
 	
@@ -39,20 +30,8 @@ public class Question
 	{
 		return correctAnswerNumber;
 	}
-	public String getAnswerZero()
+	public ArrayList<String> getAnswers()
 	{
-		return answerZero;
-	}
-	public String getAnswerOne()
-	{
-		return answerOne;
-	}
-	public String getAnswerTwo()
-	{
-		return answerTwo;
-	}
-	public String getAnswerThree()
-	{
-		return answerThree;
+		return answers;
 	}
 }
