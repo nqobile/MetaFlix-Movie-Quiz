@@ -4,9 +4,9 @@
     <!-- MainActivity -->
     <string name="app_name">MetaFlix Movie Quiz</string>
     <string name="action_settings">Settings</string>
-    <string name="welcome">Welcome to the MetaFlix Movie Quiz!</string>
-    <string name="quizStartButtonLabel">Start Quiz</string>
-    <string name="quizStatisticsButtonLabel">Quiz Statistics</string>
+    <string name="welcome">Welcome to the\nMetaFlix Movie Quiz!</string>
+    <string name="quizStartButtonLabel">\n\n\nStart Quiz\n\n\n</string>
+    <string name="quizStatisticsButtonLabel">\n\n\nQuiz Statistics\n\n\n</string>
 
     <!-- QuizActivity -->
     <string name="title_activity_quiz">MetaFlix Movie Quiz</string>
