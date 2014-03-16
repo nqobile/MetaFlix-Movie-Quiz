@@ -24,7 +24,8 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/statsButton"
         android:layout_centerHorizontal="true"
-        android:text="@string/quizStartButtonLabel" />
+        android:text="@string/quizStartButtonLabel"
+        android:onClick="startQuiz" />
 
     <Button
         android:id="@+id/statsButton"
