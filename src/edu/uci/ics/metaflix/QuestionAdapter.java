@@ -92,7 +92,7 @@ public class QuestionAdapter {
 	    	{
 	    	case 0:
 	    		answers = new ArrayList<String>();
-	    		wrongAnsQuery = "SELECT director FROM movies ORDER BY RANDOM() LIMIT 20";
+	    		wrongAnsQuery = "SELECT director FROM movies ORDER BY RANDOM() LIMIT 3";
 	    		wrongResults = this.mDb.rawQuery(wrongAnsQuery,null);
 	    		
 	    		//Add wrong answers to Array of Answers
@@ -104,7 +104,7 @@ public class QuestionAdapter {
 	    		
 	    		query = "SELECT title, director FROM movies ORDER BY RANDOM() LIMIT 1";
 	    		results = this.mDb.rawQuery(query, null);
-	    		results.moveToNext();
+	    		results.moveToFirst();
 	    		correctAnswerIndex = randomGen.nextInt(3);
 	    		answers.add(correctAnswerIndex, results.getString(0));
 	    		
@@ -113,6 +113,7 @@ public class QuestionAdapter {
 	    		answers = new ArrayList<String>();
 	    		query = "SELECT title, year FROM movies ORDER BY RANDOM() LIMIT 1";
 	    		results = this.mDb.rawQuery(query, null);
+	    		results.moveToFirst();
 	    		
 	    		answers.add(String.valueOf(results.getInt(1)-1));
 	    		answers.add(String.valueOf(results.getInt(1)-2));
@@ -126,6 +127,7 @@ public class QuestionAdapter {
 	    		answers = new ArrayList<String>();
 	    		query = "SELECT s.first_name, s.last_name, m.title FROM stars s, stars_in_movies sm, movies m WHERE (s.id = sm.star_id AND m.id = sm.movie_id) ORDER BY RANDOM() LIMIT 1";
 	    		results = this.mDb.rawQuery(query, null);
+	    		results.moveToFirst();
 	    		
 	    		wrongAnsQuery = "SELECT first_name, last_name FROM stars ORDER BY RANDOM() LIMIT 3";
 	    		wrongResults = this.mDb.rawQuery(wrongAnsQuery, null);
@@ -142,6 +144,7 @@ public class QuestionAdapter {
 	    		answers = new ArrayList<String>();
 	    		query = "SELECT movies.id, movies.title FROM stars, stars_in_movies, movies WHERE (stars.id = stars_in_movies.star_id AND movies.id = stars_in_movies.movie_id) GROUP BY movies.id HAVING count(stars.id)>1 ORDER BY RANDOM() LIMIT 1";
 	    		results = this.mDb.rawQuery(query, null);
+	    		results.moveToFirst();
 	    		
 	    		wrongAnsQuery = "SELECT title FROM movies ORDER BY RANDOM() LIMIT 3";
 	    		wrongResults = this.mDb.rawQuery(wrongAnsQuery, null);
