@@ -31,10 +31,10 @@ public class MainActivity extends Activity
 		return true;
 	}
 
-	public void startQuizHandler(View view)
+	public void startQuiz(View view)
 	{
-		// Launch quiz activity
-		startActivity(new Intent(this, QuizActivity.class));
+		Intent intent = new Intent(MainActivity.this, QuizActivity.class);
+		startActivity(intent);
 	}
 
 }
