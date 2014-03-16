@@ -4,11 +4,9 @@ import java.util.Random;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
-import android.util.Log;
 import android.view.MenuItem;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -17,6 +15,10 @@ import android.widget.TextView;
 
 public class QuizActivity extends Activity
 {
+	private static int numberOfQuestionsAnswered = 0;
+	private static int totalNumberOfQuestionsForThisQuiz = 0;
+	private static int totalNumberOfQuestionsCorrectForThisQuiz = 0;
+	
     @SuppressLint("NewApi")
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -34,19 +36,30 @@ public class QuizActivity extends Activity
         /*
          * Start quiz
          */
+        
         QuestionAdapter qa = new QuestionAdapter(this.getApplicationContext());
         qa = qa.open();
-        int numberOfQuestionsAnswered = 0;
-		while(numberOfQuestionsAnswered < 4)
-		{
-			takeQuiz(qa);
-			numberOfQuestionsAnswered++;
-		}
-		qa.close();
+		takeQuiz(qa);
+		// qa.close();
     }
     
-    private void takeQuiz(QuestionAdapter qa)
+    private void takeQuiz(final QuestionAdapter qa)
     {
+    	if(numberOfQuestionsAnswered >= 4)
+    	{
+    		return;
+    	}
+    	
+    	TextView percentage = (TextView) findViewById(R.id.percentage);
+    	if(totalNumberOfQuestionsForThisQuiz != 0)
+    	{
+    		percentage.setText(String.valueOf(Math.floor((((float)totalNumberOfQuestionsCorrectForThisQuiz/(float)totalNumberOfQuestionsForThisQuiz)*100))) + "%");
+    	}
+    	
+    	TextView score = (TextView) findViewById(R.id.score);
+    	score.setText(String.valueOf(totalNumberOfQuestionsCorrectForThisQuiz) + "/" + String.valueOf(totalNumberOfQuestionsForThisQuiz));
+    	
+    	
     	/*
 		 * 0 - Who directed the movie X?
 		 * 1 - When was the movie X released?
@@ -100,10 +113,6 @@ public class QuizActivity extends Activity
 						// Change the colors to reflect which answer was correct
 					    int selectedAnswer = rg.getCheckedRadioButtonId();
 					    RadioButton rb = (RadioButton) findViewById(selectedAnswer);
-					    answerOne.setTextColor(Color.argb(255, 231, 76, 60));
-					    answerTwo.setTextColor(Color.argb(255, 231, 76, 60));
-					    answerThree.setTextColor(Color.argb(255, 231, 76, 60));
-					    answerFour.setTextColor(Color.argb(255, 231, 76, 60));
 					    long timeForUsersResponse;
 						switch(rb.getId())
 					    {
@@ -115,6 +124,7 @@ public class QuizActivity extends Activity
 					    	if((q.getCorrectAnswerNumber() + 1) == 1)
 					    	{
 					    		MainActivity.stats.addToCorrectAnswerTotal();
+					    		totalNumberOfQuestionsCorrectForThisQuiz++;
 					    	}
 					    	MainActivity.stats.addToWrongAnswerTotal();
 					    	timeForUsersResponse = System.currentTimeMillis() - timeStart;
@@ -128,6 +138,7 @@ public class QuizActivity extends Activity
 					    	if((q.getCorrectAnswerNumber() + 1) == 2)
 					    	{
 					    		MainActivity.stats.addToCorrectAnswerTotal();
+					    		totalNumberOfQuestionsCorrectForThisQuiz++;
 					    	}
 					    	MainActivity.stats.addToWrongAnswerTotal();
 					    	timeForUsersResponse = System.currentTimeMillis() - timeStart;
@@ -141,6 +152,7 @@ public class QuizActivity extends Activity
 					    	if((q.getCorrectAnswerNumber() + 1) == 3)
 					    	{
 					    		MainActivity.stats.addToCorrectAnswerTotal();
+					    		totalNumberOfQuestionsCorrectForThisQuiz++;
 					    	}
 					    	MainActivity.stats.addToWrongAnswerTotal();
 					    	timeForUsersResponse = System.currentTimeMillis() - timeStart;
@@ -154,32 +166,18 @@ public class QuizActivity extends Activity
 					    	if((q.getCorrectAnswerNumber() + 1) == 4)
 					    	{
 					    		MainActivity.stats.addToCorrectAnswerTotal();
+					    		totalNumberOfQuestionsCorrectForThisQuiz++;
 					    	}
 					    	MainActivity.stats.addToWrongAnswerTotal();
 					    	timeForUsersResponse = System.currentTimeMillis() - timeStart;
 					    	MainActivity.stats.calculateAverageTimePerQuestion(timeForUsersResponse);
 					    }
-						
-						// Change the correct answer's text to green
-						if(q.getCorrectAnswerNumber() + 1 == 1)
-						{
-							answerOne.setTextColor(Color.argb(255, 46, 204, 113));
-						}
-						else if(q.getCorrectAnswerNumber() + 1 == 2)
-						{
-							answerTwo.setTextColor(Color.argb(255, 46, 204, 113));
-						}
-						else if(q.getCorrectAnswerNumber() + 1 == 3)
-						{
-							answerThree.setTextColor(Color.argb(255, 46, 204, 113));
-						}
-						else if(q.getCorrectAnswerNumber() + 1 == 4)
-						{
-							answerFour.setTextColor(Color.argb(255, 46, 204, 113));
-						}
+						numberOfQuestionsAnswered++;
+						totalNumberOfQuestionsForThisQuiz++;
+						//try { Thread.sleep(1000); } catch (InterruptedException e) { e.printStackTrace(); }
+					    takeQuiz(qa);
 					}
 				});
-	    Log.d("DEBUGGING", "Question answered");
     }
 
     @Override

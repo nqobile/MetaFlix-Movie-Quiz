@@ -80,4 +80,24 @@
         android:textSize="12sp" />
     <!-- Time Remaining -->
 
+    <TextView
+        android:id="@+id/percentage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/timeRemaining"
+        android:layout_marginBottom="20dp"
+        android:layout_toLeftOf="@+id/timeRemaining"
+        android:text="@string/percentage"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/percentage"
+        android:layout_toRightOf="@+id/timeRemaining"
+        android:layout_marginBottom="20dp"
+        android:text="@string/score"
+        android:textSize="20sp" />
+
 </RelativeLayout>

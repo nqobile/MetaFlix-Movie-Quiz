@@ -17,7 +17,8 @@
     <string name="answerThree">Answer #3</string>
     <string name="answerFour">Answer #4</string>
     <string name="title_activity_statistics">Statistics</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="percentage">0%</string>
+    <string name="score">0/0</string>
 
     <!-- StatisticsActivity -->
     <string name="overallScoreValue">0%</string>
