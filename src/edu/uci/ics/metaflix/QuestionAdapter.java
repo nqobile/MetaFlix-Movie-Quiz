@@ -106,7 +106,7 @@ public class QuestionAdapter {
 	    		results = this.mDb.rawQuery(query, null);
 	    		results.moveToFirst();
 	    		correctAnswerIndex = randomGen.nextInt(3);
-	    		answers.add(correctAnswerIndex, results.getString(0));
+	    		answers.add(correctAnswerIndex, results.getString(1));
 	    		
 	    		return new Question("Who directed the movie "+results.getString(0)+"?", correctAnswerIndex, answers);
 	    	case 1:
@@ -134,7 +134,7 @@ public class QuestionAdapter {
 	    		
 	    		while(wrongResults.moveToNext())
 	    		{
-	    			answers.add(results.getString(0) + " " + results.getString(1));
+	    			answers.add(wrongResults.getString(0) + " " + wrongResults.getString(1));
 	    		}	    		
 	    		
 	    		correctAnswerIndex = randomGen.nextInt(3);
@@ -157,7 +157,7 @@ public class QuestionAdapter {
 	    		String query2 = "SELECT first_name, last_name FROM stars, stars_in_movies WHERE (stars.id = stars_in_movies.star_id) AND movie_id = " + results.getInt(0) + " ORDER BY RANDOM() LIMIT 2";
 	    		Cursor results2 = this.mDb.rawQuery(query2, null);
 	    		
-	    		correctAnswerIndex = randomGen.nextInt();
+	    		correctAnswerIndex = randomGen.nextInt(3);
 	    		answers.add(correctAnswerIndex, results.getString(1));
 	    		String question = "In which movie did stars " + results2.getString(0) + " " + results2.getString(1);
 	    		results2.moveToNext();
