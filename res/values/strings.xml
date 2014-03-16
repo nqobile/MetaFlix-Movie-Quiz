@@ -12,7 +12,6 @@
     <string name="title_activity_quiz">MetaFlix Movie Quiz</string>
     <string name="question">Place the question from the DB here.</string>
     <string name="timeRemaining">Time Left</string>
-    <string name="answerButton">Submit Answer</string>
     <string name="answerOne">Answer #1</string>
     <string name="answerTwo">Answer #2</string>
     <string name="answerThree">Answer #3</string>
