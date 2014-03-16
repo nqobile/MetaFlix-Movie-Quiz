@@ -8,6 +8,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 public class QuestionAdapter {
 	Random randomGen;
@@ -40,7 +41,8 @@ public class QuestionAdapter {
 	     * @param ctx
 	     *            the Context within which to work
 	     */
-	    public QuestionAdapter(Context ctx) {
+	    public QuestionAdapter(Context ctx)
+	    {
 	        this.mCtx = ctx;
 	        randomGen = new Random();
 	    }
@@ -55,7 +57,8 @@ public class QuestionAdapter {
 	     * @throws SQLException
 	     *             if the database could be neither opened or created
 	     */
-	    public QuestionAdapter open() throws SQLException {
+	    public QuestionAdapter open() throws SQLException
+	    {
 	        this.mDbHelper = new DatabaseHelper(this.mCtx);
 	        this.mDb = this.mDbHelper.getWritableDatabase();
 	        return this;
@@ -64,7 +67,8 @@ public class QuestionAdapter {
 	    /**
 	     * close return type: void
 	     */
-	    public void close() {
+	    public void close()
+	    {
 	        this.mDbHelper.close();
 	    }
 
@@ -88,24 +92,26 @@ public class QuestionAdapter {
 	    	{
 	    	case 0:
 	    		answers = new ArrayList<String>();
-	    		wrongAnsQuery = "SELECT director FROM movies ORDER BY RANDOM() LIMIT 3;";
+	    		wrongAnsQuery = "SELECT director FROM movies ORDER BY RANDOM() LIMIT 20";
 	    		wrongResults = this.mDb.rawQuery(wrongAnsQuery,null);
 	    		
 	    		//Add wrong answers to Array of Answers
 	    		while(wrongResults.moveToNext())
 	    		{
 	    			answers.add(wrongResults.getString(0));
+	    			Log.d("Debug output", String.valueOf(answers.size()));
 	    		}
 	    		
-	    		query = "SELECT title, director FROM movies ORDER BY RANDOM() LIMIT 1;";
+	    		query = "SELECT title, director FROM movies ORDER BY RANDOM() LIMIT 1";
 	    		results = this.mDb.rawQuery(query, null);
+	    		results.moveToNext();
 	    		correctAnswerIndex = randomGen.nextInt(3);
 	    		answers.add(correctAnswerIndex, results.getString(0));
 	    		
 	    		return new Question("Who directed the movie "+results.getString(0)+"?", correctAnswerIndex, answers);
 	    	case 1:
 	    		answers = new ArrayList<String>();
-	    		query = "SELECT title, year FROM movies ORDER BY RANDOM() LIMIT 1;";
+	    		query = "SELECT title, year FROM movies ORDER BY RANDOM() LIMIT 1";
 	    		results = this.mDb.rawQuery(query, null);
 	    		
 	    		answers.add(String.valueOf(results.getInt(1)-1));
@@ -118,10 +124,10 @@ public class QuestionAdapter {
 	    		return new Question("When was the movie "+results.getString(0)+" released?", correctAnswerIndex, answers);	
 	    	case 2:
 	    		answers = new ArrayList<String>();
-	    		query = "SELECT s.first_name, s.last_name, m.title FROM stars s, stars_in_movies sm, movies m WHERE (s.id = sm.star_id AND m.id = sm.movie_id) ORDER BY RANDOM() LIMIT 1;";
+	    		query = "SELECT s.first_name, s.last_name, m.title FROM stars s, stars_in_movies sm, movies m WHERE (s.id = sm.star_id AND m.id = sm.movie_id) ORDER BY RANDOM() LIMIT 1";
 	    		results = this.mDb.rawQuery(query, null);
 	    		
-	    		wrongAnsQuery = "SELECT first_name, last_name FROM stars ORDER BY RANDOM() LIMIT 3;";
+	    		wrongAnsQuery = "SELECT first_name, last_name FROM stars ORDER BY RANDOM() LIMIT 3";
 	    		wrongResults = this.mDb.rawQuery(wrongAnsQuery, null);
 	    		
 	    		while(wrongResults.moveToNext())
@@ -134,10 +140,10 @@ public class QuestionAdapter {
 	    		return new Question("Which star was in the movie "+results.getString(2)+"?", correctAnswerIndex, answers);	
 	    	case 3:
 	    		answers = new ArrayList<String>();
-	    		query = "SELECT movies.id, movies.title FROM stars, stars_in_movies, movies WHERE (stars.id = stars_in_movies.star_id AND movies.id = stars_in_movies.movie_id) GROUP BY movies.id HAVING count(stars.id)>1 ORDER BY RANDOM() LIMIT 1;";
+	    		query = "SELECT movies.id, movies.title FROM stars, stars_in_movies, movies WHERE (stars.id = stars_in_movies.star_id AND movies.id = stars_in_movies.movie_id) GROUP BY movies.id HAVING count(stars.id)>1 ORDER BY RANDOM() LIMIT 1";
 	    		results = this.mDb.rawQuery(query, null);
 	    		
-	    		wrongAnsQuery = "SELECT title FROM movies ORDER BY RANDOM() LIMIT 3;";
+	    		wrongAnsQuery = "SELECT title FROM movies ORDER BY RANDOM() LIMIT 3";
 	    		wrongResults = this.mDb.rawQuery(wrongAnsQuery, null);
 	    		
 	    		while(wrongResults.moveToNext())
@@ -145,7 +151,7 @@ public class QuestionAdapter {
 	    			answers.add(wrongResults.getString(0));
 	    		}
 	    		
-	    		String query2 = "SELECT first_name, last_name FROM stars, stars_in_movies WHERE (stars.id = stars_in_movies.star_id) AND movie_id = " + results.getInt(0) + " ORDER BY RANDOM() LIMIT 2;";
+	    		String query2 = "SELECT first_name, last_name FROM stars, stars_in_movies WHERE (stars.id = stars_in_movies.star_id) AND movie_id = " + results.getInt(0) + " ORDER BY RANDOM() LIMIT 2";
 	    		Cursor results2 = this.mDb.rawQuery(query2, null);
 	    		
 	    		correctAnswerIndex = randomGen.nextInt();
