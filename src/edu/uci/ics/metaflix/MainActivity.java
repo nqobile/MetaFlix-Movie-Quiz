@@ -30,11 +30,14 @@ public class MainActivity extends Activity
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
-
 	public void startQuiz(View view)
 	{
 		Intent intent = new Intent(MainActivity.this, QuizActivity.class);
 		startActivity(intent);
 	}
-
+	public void accessStats(View view)
+	{
+		Intent intent = new Intent(MainActivity.this, StatisticsActivity.class);
+		startActivity(intent);
+	}
 }

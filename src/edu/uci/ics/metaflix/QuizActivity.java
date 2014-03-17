@@ -18,7 +18,6 @@ import android.widget.TextView;
 
 public class QuizActivity extends Activity
 {
-	private static int numberOfQuestionsAnswered = 0;
 	private static int totalNumberOfQuestionsForThisQuiz = 0;
 	private static int totalNumberOfQuestionsCorrectForThisQuiz = 0;
 	
@@ -265,7 +264,6 @@ public class QuizActivity extends Activity
 					    	MainActivity.stats.calculateAverageTimePerQuestion(timeForUsersResponse);
 					    	break;
 					    }
-						numberOfQuestionsAnswered++;
 						totalNumberOfQuestionsForThisQuiz++;
 						takeQuiz(qa);
 					}
