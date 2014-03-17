@@ -1,18 +1,35 @@
 package edu.uci.ics.metaflix;
 
-import android.os.Bundle;
 import android.app.Activity;
+import android.os.Bundle;
 import android.view.Menu;
+import android.widget.TextView;
 
-public class StatisticsActivity extends Activity {
-
+public class StatisticsActivity extends Activity
+{
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState)
+	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_statistics);
 		
+		// Display the correct values
+		TextView overallScore = (TextView) findViewById(R.id.overallScoreValue);
+		overallScore.setText(String.valueOf(Math.floor((((float)MainActivity.stats.getTotalCorrectAnswers()
+					/(float)(MainActivity.stats.getTotalCorrectAnswers()+MainActivity.stats.getTotalWrongAnswers()))*100))) + "%");
+		
+		TextView totalQuizzesTaken = (TextView) findViewById(R.id.totalQuizzesTakenValue);
+		totalQuizzesTaken.setText(String.valueOf(MainActivity.stats.getTotalNumberOfQuizzesTaken()));
+		
+		TextView totalCorrectAnswers = (TextView) findViewById(R.id.totalCorrectAnswersValue);
+		totalCorrectAnswers.setText(String.valueOf(MainActivity.stats.getTotalCorrectAnswers()));
+		
+		TextView totalWrongAnswers = (TextView) findViewById(R.id.totalWrongAnswersValue);
+		totalWrongAnswers.setText(String.valueOf(MainActivity.stats.getTotalWrongAnswers()));
+		
+		TextView averageTimePerQuestion = (TextView) findViewById(R.id.averageTimePerQuestionValue);
+		averageTimePerQuestion.setText(String.valueOf(MainActivity.stats.getAverageTimePerQuestion()));
 	}
-
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
@@ -20,5 +37,4 @@ public class StatisticsActivity extends Activity {
 		getMenuInflater().inflate(R.menu.statistics, menu);
 		return true;
 	}
-
 }
