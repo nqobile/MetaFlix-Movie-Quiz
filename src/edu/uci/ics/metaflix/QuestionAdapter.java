@@ -262,7 +262,6 @@ public class QuestionAdapter {
 	    		answers.add(correctAnswerIndex, results2.getString(0));
 	    		return new Question("Who directed the star " + results.getString(1) + " " + results.getString(2) + " in the year " + results2.getInt(1) + "?", correctAnswerIndex, answers);
 	    		
-	    	case 8:
 	    	default:
 	    		return null;
 	    	}
