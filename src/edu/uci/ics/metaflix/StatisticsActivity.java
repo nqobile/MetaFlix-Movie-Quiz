@@ -2,6 +2,7 @@ package edu.uci.ics.metaflix;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.widget.TextView;
 
@@ -28,7 +29,7 @@ public class StatisticsActivity extends Activity
 		totalWrongAnswers.setText(String.valueOf(MainActivity.stats.getTotalWrongAnswers()));
 		
 		TextView averageTimePerQuestion = (TextView) findViewById(R.id.averageTimePerQuestionValue);
-		averageTimePerQuestion.setText(String.valueOf(MainActivity.stats.getAverageTimePerQuestion()));
+		averageTimePerQuestion.setText(String.valueOf(MainActivity.stats.getAverageTimePerQuestion()) + "ms");
 	}
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
@@ -37,4 +38,11 @@ public class StatisticsActivity extends Activity
 		getMenuInflater().inflate(R.menu.statistics, menu);
 		return true;
 	}
+    @Override
+    protected void onResume()
+    {
+    	super.onResume();
+    	Log.d("DEBUG", "RESUME YOUR STATS ANUS");
+    	MainActivity.stats.loadStats(this.getApplicationContext());
+    }
 }

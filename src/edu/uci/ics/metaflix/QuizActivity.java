@@ -53,6 +53,7 @@ public class QuizActivity extends Activity
         
         qa = new QuestionAdapter(this.getApplicationContext());
         qa = qa.open();
+        MainActivity.stats.loadStats(this.getApplicationContext());
 		takeQuiz(qa);
     }
     @Override
@@ -63,6 +64,8 @@ public class QuizActivity extends Activity
     	totalNumberOfQuestionsCorrectForThisQuiz = 0;
     	totalNumberOfQuestionsForThisQuiz = 0;
     	Log.d("DEBUG", "DESTROYER OF ANUSES");
+    	MainActivity.stats.addToTotalNumberOfQuizzesTaken();
+    	MainActivity.stats.saveStats(this.getApplicationContext());
     }
     @Override
     protected void onPause()
@@ -71,6 +74,8 @@ public class QuizActivity extends Activity
     	mHandler.removeCallbacks(updateTask);
     	pauseTime = SystemClock.uptimeMillis();
     	Log.d("DEBUG", "PAUSE YOUR ANUS");
+    	Log.d("DEBUG", String.valueOf(MainActivity.stats.getTotalCorrectAnswers()) + "-" + String.valueOf(MainActivity.stats.getTotalWrongAnswers()));
+    	MainActivity.stats.saveStats(this.getApplicationContext());
     	
     }
     @Override
@@ -92,6 +97,7 @@ public class QuizActivity extends Activity
     		mStart += resumeTime - pauseTime;
     	}
     	Log.d("DEBUG", "RESUME YOUR ANUS");
+    	MainActivity.stats.loadStats(this.getApplicationContext());
     }
     private Runnable updateTask = new Runnable()
 	{	

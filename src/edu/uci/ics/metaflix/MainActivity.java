@@ -19,7 +19,8 @@ public class MainActivity extends Activity
 		/*
 		 * Create the databases and populate it
 		 */
-		stats = new Statistic();
+		stats = new Statistic(this.getApplicationContext());
+		@SuppressWarnings("unused")
 		DbAdapter dba = new DbAdapter(this);
 	}
 
