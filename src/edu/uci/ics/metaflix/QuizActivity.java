@@ -6,8 +6,11 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.SystemClock;
 import android.support.v4.app.NavUtils;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
@@ -18,6 +21,11 @@ public class QuizActivity extends Activity
 	private static int numberOfQuestionsAnswered = 0;
 	private static int totalNumberOfQuestionsForThisQuiz = 0;
 	private static int totalNumberOfQuestionsCorrectForThisQuiz = 0;
+	
+	private TextView timeRemaining;
+	private Handler mHandler = new Handler();
+	private long startTime;
+	private static final long duration = 10000;
 	
     @SuppressLint("NewApi")
     @Override
@@ -37,12 +45,44 @@ public class QuizActivity extends Activity
          * Start quiz
          */
         
+//        TextView timeRemaining = (TextView) findViewById(R.id.timeRemaining);
+//        startTime = SystemClock.uptimeMillis();
+//        mHandler.post(updateTask);
+        
+        
         QuestionAdapter qa = new QuestionAdapter(this.getApplicationContext());
         qa = qa.open();
 		takeQuiz(qa);
 		// qa.close();
     }
-    
+//    private Runnable updateTask = new Runnable()
+//	{	
+//		public void run()
+//		{
+//			long now = SystemClock.uptimeMillis();
+//			long elapsed = duration - (now - startTime);
+//			if (elapsed > 0)
+//			{
+//				int seconds = (int) (elapsed / 1000);
+//				int minutes = seconds / 60;
+//				seconds = seconds % 60;
+//				if (seconds < 10)
+//				{
+//					timeRemaining.setText("" + minutes + ":0" + seconds);
+//				}
+//				else
+//				{
+//					timeRemaining.setText("" + minutes + ":" + seconds);            
+//				}
+//				mHandler.postAtTime(this, now + 1000);
+//			}
+//			else
+//			{
+//				mHandler.removeCallbacks(this);
+//				finish();
+//			}
+//		}
+//	};
     private void takeQuiz(final QuestionAdapter qa)
     {
     	if(numberOfQuestionsAnswered >= 4)
@@ -75,7 +115,7 @@ public class QuizActivity extends Activity
 		 * Make the question
 		 */
 		Random random = new Random();
-		final Question q = qa.generateQuestion(random.nextInt(3));
+		final Question q = qa.generateQuestion(random.nextInt(1));
 		
 		/*
 		 * Change the text of the quesiton
@@ -126,9 +166,13 @@ public class QuizActivity extends Activity
 					    		MainActivity.stats.addToCorrectAnswerTotal();
 					    		totalNumberOfQuestionsCorrectForThisQuiz++;
 					    	}
-					    	MainActivity.stats.addToWrongAnswerTotal();
+					    	else
+					    	{
+					    		MainActivity.stats.addToWrongAnswerTotal();
+					    	}
 					    	timeForUsersResponse = System.currentTimeMillis() - timeStart;
 					    	MainActivity.stats.calculateAverageTimePerQuestion(timeForUsersResponse);
+					    	break;
 					    	
 					    case R.id.answerTwo:
 					    	/*
@@ -140,9 +184,13 @@ public class QuizActivity extends Activity
 					    		MainActivity.stats.addToCorrectAnswerTotal();
 					    		totalNumberOfQuestionsCorrectForThisQuiz++;
 					    	}
-					    	MainActivity.stats.addToWrongAnswerTotal();
+					    	else
+					    	{
+					    		MainActivity.stats.addToWrongAnswerTotal();
+					    	}
 					    	timeForUsersResponse = System.currentTimeMillis() - timeStart;
 					    	MainActivity.stats.calculateAverageTimePerQuestion(timeForUsersResponse);
+					    	break;
 					    	
 					    case R.id.answerThree:
 					    	/*
@@ -154,9 +202,14 @@ public class QuizActivity extends Activity
 					    		MainActivity.stats.addToCorrectAnswerTotal();
 					    		totalNumberOfQuestionsCorrectForThisQuiz++;
 					    	}
+					    	else
+					    	{
+					    		MainActivity.stats.addToWrongAnswerTotal();
+					    	}
 					    	MainActivity.stats.addToWrongAnswerTotal();
 					    	timeForUsersResponse = System.currentTimeMillis() - timeStart;
 					    	MainActivity.stats.calculateAverageTimePerQuestion(timeForUsersResponse);
+					    	break;
 					    	
 					    case R.id.answerFour:
 					    	/*
@@ -168,14 +221,17 @@ public class QuizActivity extends Activity
 					    		MainActivity.stats.addToCorrectAnswerTotal();
 					    		totalNumberOfQuestionsCorrectForThisQuiz++;
 					    	}
-					    	MainActivity.stats.addToWrongAnswerTotal();
+					    	else
+					    	{
+					    		MainActivity.stats.addToWrongAnswerTotal();
+					    	}
 					    	timeForUsersResponse = System.currentTimeMillis() - timeStart;
 					    	MainActivity.stats.calculateAverageTimePerQuestion(timeForUsersResponse);
+					    	break;
 					    }
 						numberOfQuestionsAnswered++;
 						totalNumberOfQuestionsForThisQuiz++;
-						//try { Thread.sleep(1000); } catch (InterruptedException e) { e.printStackTrace(); }
-					    takeQuiz(qa);
+						takeQuiz(qa);
 					}
 				});
     }
