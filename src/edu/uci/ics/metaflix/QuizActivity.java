@@ -10,7 +10,6 @@ import android.os.Handler;
 import android.os.SystemClock;
 import android.support.v4.app.NavUtils;
 import android.view.MenuItem;
-import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
@@ -22,10 +21,10 @@ public class QuizActivity extends Activity
 	private static int totalNumberOfQuestionsForThisQuiz = 0;
 	private static int totalNumberOfQuestionsCorrectForThisQuiz = 0;
 	
-	private TextView timeRemaining;
+	private TextView mTimeLabel;
 	private Handler mHandler = new Handler();
-	private long startTime;
-	private static final long duration = 10000;
+	private long mStart;
+	private static final long duration = 180000;
 	
     @SuppressLint("NewApi")
     @Override
@@ -44,10 +43,9 @@ public class QuizActivity extends Activity
         /*
          * Start quiz
          */
-        
-//        TextView timeRemaining = (TextView) findViewById(R.id.timeRemaining);
-//        startTime = SystemClock.uptimeMillis();
-//        mHandler.post(updateTask);
+        mTimeLabel = (TextView)this.findViewById(R.id.timeRemaining);
+        mStart = SystemClock.uptimeMillis();
+        mHandler.post(updateTask);
         
         
         QuestionAdapter qa = new QuestionAdapter(this.getApplicationContext());
@@ -55,34 +53,34 @@ public class QuizActivity extends Activity
 		takeQuiz(qa);
 		// qa.close();
     }
-//    private Runnable updateTask = new Runnable()
-//	{	
-//		public void run()
-//		{
-//			long now = SystemClock.uptimeMillis();
-//			long elapsed = duration - (now - startTime);
-//			if (elapsed > 0)
-//			{
-//				int seconds = (int) (elapsed / 1000);
-//				int minutes = seconds / 60;
-//				seconds = seconds % 60;
-//				if (seconds < 10)
-//				{
-//					timeRemaining.setText("" + minutes + ":0" + seconds);
-//				}
-//				else
-//				{
-//					timeRemaining.setText("" + minutes + ":" + seconds);            
-//				}
-//				mHandler.postAtTime(this, now + 1000);
-//			}
-//			else
-//			{
-//				mHandler.removeCallbacks(this);
-//				finish();
-//			}
-//		}
-//	};
+    private Runnable updateTask = new Runnable()
+	{	
+		public void run()
+		{
+			long now = SystemClock.uptimeMillis();
+			long elapsed = duration - (now - mStart);
+			if (elapsed > 0)
+			{
+				int seconds = (int) (elapsed / 1000);
+				int minutes = seconds / 60;
+				seconds = seconds % 60;
+				if (seconds < 10)
+				{
+					mTimeLabel.setText("" + minutes + ":0" + seconds);
+				}
+				else
+				{
+					mTimeLabel.setText("" + minutes + ":" + seconds);            
+				}
+				mHandler.postAtTime(this, now + 1000);
+			}
+			else
+			{
+				mHandler.removeCallbacks(this);
+				finish();
+			}
+		}
+	};
     private void takeQuiz(final QuestionAdapter qa)
     {
     	if(numberOfQuestionsAnswered >= 4)
@@ -115,7 +113,7 @@ public class QuizActivity extends Activity
 		 * Make the question
 		 */
 		Random random = new Random();
-		final Question q = qa.generateQuestion(random.nextInt(1));
+		final Question q = qa.generateQuestion(random.nextInt(8));
 		
 		/*
 		 * Change the text of the quesiton
