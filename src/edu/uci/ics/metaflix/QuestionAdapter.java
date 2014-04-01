@@ -8,7 +8,6 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 public class QuestionAdapter {
 	Random randomGen;
@@ -101,7 +100,6 @@ public class QuestionAdapter {
 	    		while(wrongResults.moveToNext())
 	    		{
 	    			answers.add(wrongResults.getString(0));
-	    			Log.d("Debug output", String.valueOf(answers.size()));
 	    		}
 	    		
 	    		query = "SELECT title, director FROM movies ORDER BY RANDOM() LIMIT 1";
