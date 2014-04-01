@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.support.v4.app.NavUtils;
-import android.util.Log;
 import android.view.MenuItem;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -26,7 +25,7 @@ public class QuizActivity extends Activity
 	private long mStart;
 	private long pauseTime =0;
 	private long resumeTime =0;
-	private static final long duration = 180000;
+	private static final long duration = 60000;
 	private QuestionAdapter qa;
 	
     @SuppressLint("NewApi")
@@ -63,7 +62,6 @@ public class QuizActivity extends Activity
     	qa.close();
     	totalNumberOfQuestionsCorrectForThisQuiz = 0;
     	totalNumberOfQuestionsForThisQuiz = 0;
-    	Log.d("DEBUG", "DESTROYER OF ANUSES");
     	MainActivity.stats.addToTotalNumberOfQuizzesTaken();
     	MainActivity.stats.saveStats(this.getApplicationContext());
     }
@@ -73,8 +71,6 @@ public class QuizActivity extends Activity
     	super.onPause();
     	mHandler.removeCallbacks(updateTask);
     	pauseTime = SystemClock.uptimeMillis();
-    	Log.d("DEBUG", "PAUSE YOUR ANUS");
-    	Log.d("DEBUG", String.valueOf(MainActivity.stats.getTotalCorrectAnswers()) + "-" + String.valueOf(MainActivity.stats.getTotalWrongAnswers()));
     	MainActivity.stats.saveStats(this.getApplicationContext());
     	
     }
@@ -84,7 +80,6 @@ public class QuizActivity extends Activity
     	super.onStop();
     	mHandler.removeCallbacks(updateTask);
     	pauseTime = SystemClock.uptimeMillis();
-    	Log.d("DEBUG", "STOP YOUR ANUS");
     }
     @Override
     protected void onResume()
@@ -96,14 +91,12 @@ public class QuizActivity extends Activity
     		resumeTime = SystemClock.uptimeMillis();
     		mStart += resumeTime - pauseTime;
     	}
-    	Log.d("DEBUG", "RESUME YOUR ANUS");
     	MainActivity.stats.loadStats(this.getApplicationContext());
     }
     private Runnable updateTask = new Runnable()
 	{	
 		public void run()
 		{
-			Log.d("DEBUG", "FUCK YOU TIMER");
 			long now = SystemClock.uptimeMillis();
 			long elapsed = duration - (now - mStart);
 			if (elapsed > 0)
@@ -119,7 +112,6 @@ public class QuizActivity extends Activity
 				{
 					mTimeLabel.setText("" + minutes + ":" + seconds);            
 				}
-				Log.d("DEBUG", "THIS BITCH IS POSTING AGAIN");
 				mHandler.postAtTime(this, now + 1000);
 			}
 			else
