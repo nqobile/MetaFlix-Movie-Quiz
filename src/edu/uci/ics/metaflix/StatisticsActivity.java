@@ -2,7 +2,6 @@ package edu.uci.ics.metaflix;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.widget.TextView;
 
@@ -42,7 +41,6 @@ public class StatisticsActivity extends Activity
     protected void onResume()
     {
     	super.onResume();
-    	Log.d("DEBUG", "RESUME YOUR STATS ANUS");
     	MainActivity.stats.loadStats(this.getApplicationContext());
     }
 }
